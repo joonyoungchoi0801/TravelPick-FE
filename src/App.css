@@ -25,6 +25,8 @@ a {
 button {
   cursor: pointer;
   border: none;
+  outline: none;
+  background-color: #ffffff;
 }
 :root {
   --color-blue: #0056f6;
