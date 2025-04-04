@@ -1,0 +1,39 @@
+.searchBar {
+  height: 6rem;
+  width: 75rem;
+  box-shadow: 0 2px 3px rgba(0.15, 0.15, 0.15, 0.15);
+  border-radius: 10rem;
+  position: relative;
+  background-color: #fff;
+  border: 0.2rem solid var(--color-gray);
+  .input {
+    height: 100%;
+    width: 100%;
+    padding: 0 5rem;
+    font-size: 1.6rem;
+    border: none;
+    outline: none;
+    border-radius: 10rem;
+    margin-right: 2rem;
+  }
+}
+
+.imageIcon {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
