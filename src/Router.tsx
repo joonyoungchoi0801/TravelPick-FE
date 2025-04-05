@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import Home from './page/Home';
-import SearchPage from './page/Search';
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Home from "./page/Home";
+import SearchPage from "./page/Search";
 
 export default function Router() {
   return (
