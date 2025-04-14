@@ -11,10 +11,9 @@ html {
 }
 
 body {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   cursor: default;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 a {
