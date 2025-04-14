@@ -1,7 +1,16 @@
+import { useState } from 'react';
+import ReactDOM from 'react-dom';
 import SearchBar from '../searchbar';
 import styles from './Header.module.scss';
+import SigninModal from '../modal/signin';
+import SignupModal from '../modal/signup';
 
 function Header() {
+  const [isSigninModalOpen, setSigninModalOpen] = useState(false);
+  const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+
+  console.log(isSigninModalOpen, isSignupModalOpen);
+
   return (
     <>
       <div className={styles.headerContainer}>
@@ -12,31 +21,42 @@ function Header() {
               <button className={styles.menuButton}>여행지</button>
               <button className={styles.menuButton}>여행지 추가</button>
             </div>
-            <button className={styles.loginButton}>로그인</button>
+            <button
+              className={styles.loginButton}
+              onClick={() => setSigninModalOpen(!isSigninModalOpen)}
+            >
+              로그인
+            </button>
           </div>
         </div>
         <div className={styles.searchBarContainer}>
           <SearchBar />
         </div>
+        {isSigninModalOpen &&
+          ReactDOM.createPortal(
+            <SigninModal
+              onClose={() => setSigninModalOpen(false)}
+              setSignupModalOpen={() => {
+                setSignupModalOpen(true);
+                setSigninModalOpen(false);
+              }}
+            />,
+            document.getElementById('modal-root') as HTMLElement
+          )}
+        {isSignupModalOpen &&
+          ReactDOM.createPortal(
+            <SignupModal
+              onClose={() => setSignupModalOpen(false)}
+              setLoginModalOpen={() => {
+                setSignupModalOpen(false);
+                setSigninModalOpen(true);
+              }}
+            />,
+            document.getElementById('modal-root') as HTMLElement
+          )}
       </div>
     </>
   );
 }
 
 export default Header;
-
-// <header className="fixed top-0 left-0 right-0 flex items-center justify-center w-full h-[60px] border-b border-[color:var(--color-gray)] px-[calc((100vw-80rem)/2)]">
-//       <div className="flex items-center justify-between w-full ">
-//         <div className="flex items-center">TRAVELPICK</div>
-//         <div className="flex items-center gap-[1rem]">
-//           <button className="inline-block px-4 py-2 hover:bg-gray-200 rounded text-[1rem]">
-//             여행지
-//           </button>
-
-//           <button className="inline-block px-4 py-2 hover:bg-gray-200 rounded text-[1rem]">
-//             여행지 추가
-//           </button>
-//         </div>
-//         <button className="flex items-center">로그인</button>
-//       </div>
-//     </header>
