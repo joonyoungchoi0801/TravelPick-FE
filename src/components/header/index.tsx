@@ -1,15 +1,13 @@
-import { useState } from 'react';
-import ReactDOM from 'react-dom';
-import SearchBar from '../searchbar';
-import styles from './Header.module.scss';
-import SigninModal from '../modal/signin';
-import SignupModal from '../modal/signup';
+import { useState } from "react";
+import ReactDOM from "react-dom";
+import SearchBar from "../searchbar";
+import styles from "./Header.module.scss";
+import SigninModal from "../modal/signin";
+import SignupModal from "../modal/signup";
 
 function Header() {
   const [isSigninModalOpen, setSigninModalOpen] = useState(false);
   const [isSignupModalOpen, setSignupModalOpen] = useState(false);
-
-  console.log(isSigninModalOpen, isSignupModalOpen);
 
   return (
     <>
@@ -41,7 +39,7 @@ function Header() {
                 setSigninModalOpen(false);
               }}
             />,
-            document.getElementById('modal-root') as HTMLElement
+            document.getElementById("modal-root") as HTMLElement
           )}
         {isSignupModalOpen &&
           ReactDOM.createPortal(
@@ -52,7 +50,7 @@ function Header() {
                 setSigninModalOpen(true);
               }}
             />,
-            document.getElementById('modal-root') as HTMLElement
+            document.getElementById("modal-root") as HTMLElement
           )}
       </div>
     </>

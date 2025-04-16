@@ -9,8 +9,10 @@ import {
   FiveRating,
 } from "./circle";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TravelBox() {
+  const navigate = useNavigate();
   const [rating, setRating] = useState(4.5);
   const [reviewCount, setReviewCount] = useState(1200);
   const Rating = () => {
@@ -31,8 +33,11 @@ function TravelBox() {
         return <FiveRating />;
     }
   };
+  const handleClickBox = () => {
+    navigate("/destination/1");
+  };
   return (
-    <div className={styles.travelBox}>
+    <div className={styles.travelBox} onClick={handleClickBox}>
       <div className={styles.travelImg}>
         <img src={img} alt="travel" />
       </div>
