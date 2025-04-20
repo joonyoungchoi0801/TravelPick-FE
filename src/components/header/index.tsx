@@ -1,9 +1,9 @@
-import { useState } from "react";
-import ReactDOM from "react-dom";
-import SearchBar from "../searchbar";
-import styles from "./Header.module.scss";
-import SigninModal from "../modal/signin";
-import SignupModal from "../modal/signup";
+import { useState } from 'react';
+import ReactDOM from 'react-dom';
+import SearchBar from '../searchbar';
+import styles from './Header.module.scss';
+import SigninModal from '../modal/signin';
+import SignupModal from '../modal/signup';
 
 function Header() {
   const [isSigninModalOpen, setSigninModalOpen] = useState(false);
@@ -16,7 +16,6 @@ function Header() {
           <div className={styles.nav}>
             <div className={styles.logo}>TRAVELPICK</div>
             <div className={styles.menu}>
-              <button className={styles.menuButton}>여행지</button>
               <button className={styles.menuButton}>여행지 추가</button>
             </div>
             <button
@@ -39,7 +38,7 @@ function Header() {
                 setSigninModalOpen(false);
               }}
             />,
-            document.getElementById("modal-root") as HTMLElement
+            document.getElementById('modal-root') as HTMLElement
           )}
         {isSignupModalOpen &&
           ReactDOM.createPortal(
@@ -50,7 +49,7 @@ function Header() {
                 setSigninModalOpen(true);
               }}
             />,
-            document.getElementById("modal-root") as HTMLElement
+            document.getElementById('modal-root') as HTMLElement
           )}
       </div>
     </>

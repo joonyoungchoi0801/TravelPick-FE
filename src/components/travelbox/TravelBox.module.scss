@@ -16,9 +16,10 @@
   align-items: center;
   flex: 3;
   height: 100%;
+  width: 100%;
 }
 .travelImg img {
-  width: 50%;
+  max-width: 25rem;
   height: 100%;
 }
 .travelContent {
