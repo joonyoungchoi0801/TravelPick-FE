@@ -37,3 +37,17 @@
   height: 2rem;
   cursor: pointer;
 }
+
+.imagePreview {
+  position: absolute;
+  top: 50%;
+  left: -8rem;
+  transform: translateY(-50%);
+  overflow: hidden;
+  cursor: pointer;
+  .previewImage {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+  }
+}
