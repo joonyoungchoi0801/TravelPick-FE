@@ -4,8 +4,10 @@ import SearchBar from '../searchbar';
 import styles from './Header.module.scss';
 import SigninModal from '../modal/signin';
 import SignupModal from '../modal/signup';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const navigate = useNavigate();
   const [isSigninModalOpen, setSigninModalOpen] = useState(false);
   const [isSignupModalOpen, setSignupModalOpen] = useState(false);
 
@@ -14,7 +16,9 @@ function Header() {
       <div className={styles.headerContainer}>
         <div className={styles.header}>
           <div className={styles.nav}>
-            <div className={styles.logo}>TRAVELPICK</div>
+            <div className={styles.logo} onClick={() => navigate('/home')}>
+              TRAVELPICK
+            </div>
             <div className={styles.menu}>
               <button className={styles.menuButton}>여행지 추가</button>
             </div>

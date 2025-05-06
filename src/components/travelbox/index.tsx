@@ -56,11 +56,11 @@ function TravelBox({
       </div>
       <div className={styles.travelContent}>
         <div className={styles.travelTitle}>{title}</div>
-        <div className={styles.ratingWrapper}>
+        {/* <div className={styles.ratingWrapper}>
           <span>{rating}</span>
           <Rating />
           <span className={styles.reviewCnt}>{reviewCount}건의 리뷰</span>
-        </div>
+        </div> */}
         <span className={styles.travelDescription}>{description || ''}</span>
       </div>
     </div>

@@ -1,16 +1,13 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Router from './Router';
 import './App.css';
-
-const queryClient = new QueryClient();
+import { ApolloProvider } from '@apollo/client';
+import client from './api/api';
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ApolloProvider client={client}>
       <Router />
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    </ApolloProvider>
   );
 }
 

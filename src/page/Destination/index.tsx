@@ -8,12 +8,17 @@ import {
   FourRating,
   FiveRating,
 } from '../../components/travelbox/circle';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import Carousel from '../../components/Carousel';
 import { LoadScript, GoogleMap, Marker } from '@react-google-maps/api';
 import ReviewBox from '../../components/reviewBox';
 import ReviewModal from '../../components/modal/review';
 import ReactDOM from 'react-dom';
+import gql from 'graphql-tag';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GetDetailsData, GetDetailsVars } from './Destination.type';
+import { getLocation } from 'graphql';
 
 const containerStyle = { width: '100%', height: '100%' };
 const center = { lat: 16.0544, lng: 108.2022 };
@@ -64,8 +69,44 @@ const reviewData = [
       '밤이 되면 용다리가 형형색색 조명으로 빛나고, 주말에는 용 머리에서 불과 물을 뿜어요. 다낭 강변을 산책하며 맛본 길거리 커피와 달달한 코코넛 주스는 낮과는 또 다른 매력을 선사했습니다.',
   },
 ];
+const GET_DETAILS = gql`
+  query GetDetails($id: Int!) {
+    getResort(id: $id) {
+      id
+      name
+      description
+      photos {
+        id
+        index
+        dataurl
+      }
+    }
+    getLocation(id: $id) {
+      latitude
+      longitude
+    }
+    getReview(id: $id) {
+      id
+      content
+      created
+      photos {
+        id
+        index
+        dataurl
+      }
+    }
+  }
+`;
 
 function DestinationPage() {
+  const { id } = useParams();
+  const { data } = useQuery<GetDetailsData, GetDetailsVars>(GET_DETAILS, {
+    variables: { id: Number(id) },
+  });
+  const getResort = data?.getResort;
+  const getLocation = data?.getLocation;
+  const getReview = data?.getReview;
+  console.log(getResort, getLocation, getReview);
   const [rating, setRating] = useState(4.4);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
