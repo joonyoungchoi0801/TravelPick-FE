@@ -1,24 +1,26 @@
-import styles from './Carousel.module.scss';
-import rightArrow from '@/assets/rightarrow.svg';
-import leftArrow from '@/assets/leftarrow.svg';
-import { useState } from 'react';
+import styles from "./Carousel.module.scss";
+import rightArrow from "@/assets/rightarrow.svg";
+import leftArrow from "@/assets/leftarrow.svg";
+import { useState } from "react";
 
-const mockData = [
-  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/7a/be/64/photo6jpg.jpg?w=1200&h=-1&s=1',
-  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/33/f3/cf/caption.jpg?w=1200&h=-1&s=1',
-  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/bf/02/f6/nui-son-tra.jpg?w=1200&h=-1&s=1',
-  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/bc/ad/20/danang-marble-mountains.jpg?w=1200&h=-1&s=1',
-  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/ff/d4/40/da-nang.jpg?w=1200&h=-1&s=1',
-  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/e9/68/ca/da-nang.jpg?w=1200&h=-1&s=1',
-];
-
-function Carousel() {
+interface CarouselProps {
+  images:
+    | {
+        id: number;
+        index: number;
+        dataurl: string;
+      }[]
+    | undefined;
+}
+function Carousel({ images }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const maxIndex = images ? images.length : 0;
+  console.log("maxIndex", maxIndex);
   const handleCurrentIndex = (index: number) => {
     if (index <= 0) {
       setCurrentIndex(0);
-    } else if (index >= mockData.length) {
-      setCurrentIndex(mockData.length - 1);
+    } else if (index >= maxIndex) {
+      setCurrentIndex(maxIndex - 1);
     } else {
       setCurrentIndex(index);
     }
@@ -32,7 +34,7 @@ function Carousel() {
   const leftArrowStyle =
     currentIndex === 0 ? styles.disabled : styles.leftArrow;
   const rightArrowStyle =
-    currentIndex === mockData.length - 1 ? styles.disabled : styles.rightArrow;
+    currentIndex === maxIndex - 1 ? styles.disabled : styles.rightArrow;
   return (
     <div className={styles.carouselWrapper}>
       <img
@@ -48,7 +50,8 @@ function Carousel() {
         onClick={handleLeftArrowClick}
       />
       <div className={styles.carouselContent}>
-        <img src={mockData[currentIndex]} alt="여행지" />
+        {images && <img src={images[currentIndex].dataurl} alt="여행지" />}
+        {/* <img src={mockData[currentIndex]} alt="여행지" /> */}
       </div>
     </div>
   );

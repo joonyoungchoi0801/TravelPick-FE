@@ -8,6 +8,10 @@ export interface GetDetailsData {
     id: number;
     name: string;
     description: string;
+    ancestor: {
+      latitude: number;
+      longitude: number;
+    };
     photos: Photo[];
   };
   getLocation: {
