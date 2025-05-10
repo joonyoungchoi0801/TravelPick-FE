@@ -1,0 +1,15 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #fff;
+  width: 100%;
+  gap: 2rem;
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: #000;
+}

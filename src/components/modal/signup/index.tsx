@@ -1,5 +1,6 @@
 import styles from './Signup.module.scss';
 import closeIcon from '@/assets/close.svg';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 interface SignupModalProps {
@@ -17,8 +18,21 @@ interface SignupFormData {
 function SignupModal({ onClose, setLoginModalOpen }: SignupModalProps) {
   const { handleSubmit, register } = useForm<SignupFormData>();
 
-  const onSubmit = (data: SignupFormData) => {
-    console.log(data);
+  const onSubmit = async (data: SignupFormData) => {
+    const { email, password, name } = data;
+    const apiUrl = import.meta.env.VITE_AUTH_URL;
+    const requestBody = { email, password, name };
+
+    try {
+      const response = await axios.post(`${apiUrl}/register`, requestBody, {
+        withCredentials: true,
+      });
+      localStorage.setItem('name', response.data.name);
+      localStorage.setItem('isLogin', 'true');
+      onClose();
+    } catch (error) {
+      alert('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
+    }
   };
 
   return (

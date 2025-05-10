@@ -1,5 +1,6 @@
 import styles from './Signin.module.scss';
 import closeIcon from '@/assets/close.svg';
+import axios from 'axios';
 
 import { useForm } from 'react-hook-form';
 
@@ -16,8 +17,21 @@ interface SigninFormData {
 function SigninModal({ onClose, setSignupModalOpen }: SigninModalProps) {
   const { handleSubmit, register } = useForm<SigninFormData>();
 
-  const onSubmit = (data: SigninFormData) => {
-    console.log(data);
+  const onSubmit = async (data: SigninFormData) => {
+    const { email, password } = data;
+    const apiUrl = import.meta.env.VITE_AUTH_URL;
+    const requestBody = { email, password };
+
+    try {
+      const response = await axios.post(`${apiUrl}/login`, requestBody, {
+        withCredentials: true,
+      });
+      localStorage.setItem('isLogin', 'true');
+      localStorage.setItem('name', response.data.name);
+      onClose();
+    } catch (error) {
+      alert('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
+    }
   };
   const handleSignup = () => {
     setSignupModalOpen();

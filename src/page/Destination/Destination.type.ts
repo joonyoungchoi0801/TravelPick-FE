@@ -23,7 +23,11 @@ export interface GetDetailsData {
     content: string;
     created: string;
     photos: Photo[];
-  };
+    userview: {
+      id: number;
+      name: string;
+    };
+  }[];
 }
 export interface GetDetailsVars {
   id: number;

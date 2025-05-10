@@ -10,7 +10,30 @@ function Header() {
   const navigate = useNavigate();
   const [isSigninModalOpen, setSigninModalOpen] = useState(false);
   const [isSignupModalOpen, setSignupModalOpen] = useState(false);
+  const isLogin = localStorage.getItem('isLogin') === 'true';
+  const name = localStorage.getItem('name') || '';
 
+  const handleLogin = async () => {
+    if (isLogin) {
+      localStorage.removeItem('isLogin');
+      localStorage.removeItem('name');
+      try {
+        const apiUrl = import.meta.env.VITE_AUTH_URL;
+        await fetch(`${apiUrl}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        alert('로그아웃 되었습니다.');
+        navigate('/home');
+      } catch (error) {
+        alert('로그아웃에 실패했습니다.');
+      }
+    } else {
+      setSigninModalOpen(!isSigninModalOpen);
+    }
+  };
   return (
     <>
       <div className={styles.headerContainer}>
@@ -19,14 +42,14 @@ function Header() {
             <div className={styles.logo} onClick={() => navigate('/home')}>
               TRAVELPICK
             </div>
-            <div className={styles.menu}>
+            {/* <div className={styles.menu}>
               <button className={styles.menuButton}>여행지 추가</button>
-            </div>
+            </div> */}
             <button
               className={styles.loginButton}
-              onClick={() => setSigninModalOpen(!isSigninModalOpen)}
+              onClick={() => handleLogin()}
             >
-              로그인
+              {isLogin ? `${name}님 환영합니다!` : '로그인'}
             </button>
           </div>
         </div>

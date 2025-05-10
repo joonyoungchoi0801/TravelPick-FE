@@ -1,7 +1,7 @@
-import styles from "./Carousel.module.scss";
-import rightArrow from "@/assets/rightarrow.svg";
-import leftArrow from "@/assets/leftarrow.svg";
-import { useState } from "react";
+import styles from './Carousel.module.scss';
+import rightArrow from '@/assets/rightarrow.svg';
+import leftArrow from '@/assets/leftarrow.svg';
+import { useState } from 'react';
 
 interface CarouselProps {
   images:
@@ -15,7 +15,7 @@ interface CarouselProps {
 function Carousel({ images }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const maxIndex = images ? images.length : 0;
-  console.log("maxIndex", maxIndex);
+  console.log('maxIndex', maxIndex);
   const handleCurrentIndex = (index: number) => {
     if (index <= 0) {
       setCurrentIndex(0);
@@ -50,7 +50,7 @@ function Carousel({ images }: CarouselProps) {
         onClick={handleLeftArrowClick}
       />
       <div className={styles.carouselContent}>
-        {images && <img src={images[currentIndex].dataurl} alt="여행지" />}
+        {images && <img src={images[currentIndex]?.dataurl} alt="여행지" />}
         {/* <img src={mockData[currentIndex]} alt="여행지" /> */}
       </div>
     </div>

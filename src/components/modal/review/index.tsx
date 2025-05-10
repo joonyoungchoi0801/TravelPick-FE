@@ -1,17 +1,38 @@
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import styles from './Review.module.scss';
 import closeIcon from '@/assets/close.svg';
-
+import { gql, useMutation } from '@apollo/client';
 interface ReviewModalProps {
   onClose: () => void;
+  id: string | undefined;
 }
 interface ReviewFormData {
   rating: number;
   content: string;
-  imageUrl?: string;
+  imageUrl?: FileList;
 }
 
-function ReviewModal({ onClose }: ReviewModalProps) {
+const CREATE_REVIEW = gql`
+  mutation CreateReview(
+    $resort_id: Int!
+    $content: String!
+    $photos: [String]
+  ) {
+    createReview(
+      reviewRegisterDto: {
+        resort_id: $resort_id
+        content: $content
+        photos: $photos
+      }
+    ) {
+      content
+      created
+      id
+    }
+  }
+`;
+
+function ReviewModal({ onClose, id }: ReviewModalProps) {
   const {
     handleSubmit,
     register,
@@ -20,8 +41,36 @@ function ReviewModal({ onClose }: ReviewModalProps) {
   } = useForm<ReviewFormData>();
   const contentValue = watch('content', '');
 
-  const onSubmit = (data: ReviewFormData) => {
-    console.log(data);
+  const [createReview] = useMutation(CREATE_REVIEW);
+
+  const onSubmit = async (data: ReviewFormData) => {
+    try {
+      let base64Image: string | null = null;
+
+      if (data.imageUrl && data.imageUrl[0] instanceof File) {
+        const file = data.imageUrl[0];
+
+        const reader = new FileReader();
+
+        base64Image = await new Promise<string>((resolve, reject) => {
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      await createReview({
+        variables: {
+          resort_id: Number(id),
+          content: data.content,
+          photos: base64Image ? [base64Image] : [],
+        },
+      });
+      alert('리뷰가 성공적으로 등록되었습니다.');
+      onClose();
+    } catch (error) {
+      alert('리뷰 등록에 실패했습니다.');
+    }
   };
   return (
     <div className={styles.modal}>
@@ -34,20 +83,6 @@ function ReviewModal({ onClose }: ReviewModalProps) {
         />
         <form className={styles.reviewForm} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.reviewTitle}>리뷰 작성</div>
-          <div className={styles.ratingWrapper}>
-            <label className={styles.label}>평점</label>
-            <select
-              className={styles.reviewSelect}
-              {...register('rating', { required: true })}
-            >
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
           <div className={styles.reviewInputContainer}>
             <label className={styles.label}>리뷰 내용</label>
             <textarea

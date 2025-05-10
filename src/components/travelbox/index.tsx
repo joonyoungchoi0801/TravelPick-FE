@@ -1,53 +1,37 @@
 import styles from './TravelBox.module.scss';
 
-import {
-  ZeroRating,
-  OneRating,
-  TwoRating,
-  ThreeRating,
-  FourRating,
-  FiveRating,
-} from './circle';
-
 import { useNavigate } from 'react-router-dom';
 
 interface TravelBoxProps {
-  rating?: number;
-  reviewCount?: number;
+  id: number;
   imgSrc?: string;
   title?: string;
   description?: string;
 }
 
-function TravelBox({
-  rating = 0,
-  reviewCount = 0,
-  imgSrc,
-  title,
-  description,
-}: TravelBoxProps) {
+function TravelBox({ id, imgSrc, title, description }: TravelBoxProps) {
   const navigate = useNavigate();
 
-  const Rating = () => {
-    switch (Math.round(rating || 0)) {
-      case 0:
-        return <ZeroRating />;
-      case 1:
-        return <OneRating />;
-      case 2:
-        return <TwoRating />;
-      case 3:
-        return <ThreeRating />;
-      case 4:
-        return <FourRating />;
-      case 5:
-        return <FiveRating />;
-      default:
-        return <FiveRating />;
-    }
-  };
+  // const Rating = () => {
+  //   switch (Math.round(rating || 0)) {
+  //     case 0:
+  //       return <ZeroRating />;
+  //     case 1:
+  //       return <OneRating />;
+  //     case 2:
+  //       return <TwoRating />;
+  //     case 3:
+  //       return <ThreeRating />;
+  //     case 4:
+  //       return <FourRating />;
+  //     case 5:
+  //       return <FiveRating />;
+  //     default:
+  //       return <FiveRating />;
+  //   }
+  // };
   const handleClickBox = () => {
-    navigate('/destination/1');
+    navigate(`/destination/${id}`);
   };
   return (
     <div className={styles.travelBox} onClick={handleClickBox}>
