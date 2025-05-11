@@ -1,0 +1,142 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #fff;
+  width: 100%;
+  gap: 2rem;
+}
+.title {
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #fff;
+  width: 100%;
+  gap: 2rem;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #fff;
+  width: 100%;
+  gap: 1rem;
+  .input {
+    width: 100%;
+    height: 5rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1.6rem;
+    color: #000;
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+  }
+  .error {
+    color: red;
+    font-size: 1.4rem;
+  }
+  .label {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #000;
+  }
+}
+.textarea {
+  width: 100%;
+  height: 50rem;
+  padding: 1rem;
+  border: 1px solid #000;
+  border-radius: 0.5rem;
+  font-size: 1.6rem;
+  resize: none;
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+}
+
+.reviewInputCountContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  white-space: nowrap;
+}
+.reviewInputCount {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #000;
+  text-align: right;
+  width: 100%;
+}
+
+.submitButton {
+  margin: 0 auto;
+  width: 30rem;
+  height: 5rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #fcb69f, #ffecd2);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+.dropdown {
+  width: 100%;
+  height: 7rem;
+  padding: 1rem;
+  font-size: 1.6rem;
+  color: #000;
+  background-color: #fff;
+  overflow-y: auto;
+
+  h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 1rem;
+  }
+  .dropdownItem {
+    list-style-type: none;
+    cursor: pointer;
+  }
+}
+.dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dropdown::-webkit-scrollbar-track {
+  background: #fff0f5;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff9a9e, #fad0c4);
+  border-radius: 10px;
+}

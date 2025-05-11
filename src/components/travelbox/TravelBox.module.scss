@@ -1,0 +1,77 @@
+.travelBox {
+  display: flex;
+  height: 22.9rem;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 0.6rem;
+  padding: 1.6rem;
+  cursor: pointer;
+  border: 0.1rem solid #eaeaea;
+  border-radius: 0.5rem;
+}
+
+.travelImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 3;
+  height: 100%;
+  width: 100%;
+}
+.travelImg img {
+  max-width: 25rem;
+  height: 100%;
+}
+.travelContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 7;
+  margin-left: 0.8rem;
+  padding: 0.6rem 0;
+  gap: 0.6rem;
+}
+
+.travelTitle {
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+.ratingWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.4rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  width: 1.6rem;
+  margin-left: 5rem;
+}
+
+.circle {
+  width: 2rem;
+  height: 2rem;
+}
+
+.reviewCnt {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #545454;
+  text-decoration: underline;
+  margin-left: 4.5rem;
+}
+.travelDescription {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #000;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+}
