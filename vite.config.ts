@@ -3,26 +3,19 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import fs from 'fs';
 
-// https://vite.dev/config/
+const isDev = process.env.NODE_ENV === 'development';
+
 export default defineConfig({
-  server: {
-    https: {
-      key: fs.readFileSync('localhost-key.pem'),
-      cert: fs.readFileSync('localhost.pem'),
-    },
-  },
+  server: isDev
+    ? {
+        https: {
+          key: fs.readFileSync('localhost-key.pem'),
+          cert: fs.readFileSync('localhost.pem'),
+        },
+      }
+    : undefined,
   plugins: [react(), tailwindcss()],
   resolve: {
-    alias: [
-      { find: '@', replacement: '/src' },
-      // { find: '@components', replacement: '/src/components' },
-      // { find: '@styles', replacement: '/src/styles' },
-      // { find: '@pages', replacement: '/src/pages' },
-      // { find: '@utils', replacement: '/src/utils' },
-      // { find: '@hooks', replacement: '/src/hooks' },
-      // { find: '@api', replacement: '/src/api' },
-      // { find: '@assets', replacement: '/src/assets' },
-      // { find: '@public', replacement: '/public' },
-    ],
+    alias: [{ find: '@', replacement: '/src' }],
   },
 });
