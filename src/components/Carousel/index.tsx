@@ -15,7 +15,7 @@ interface CarouselProps {
 function Carousel({ images }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const maxIndex = images ? images.length : 0;
-  console.log('maxIndex', maxIndex);
+
   const handleCurrentIndex = (index: number) => {
     if (index <= 0) {
       setCurrentIndex(0);

@@ -14,17 +14,12 @@ export interface GetDetailsData {
     };
     photos: Photo[];
   };
-  getLocation: {
-    latitude: number;
-    longitude: number;
-  };
-  getReview: {
+  getReviews: {
     id: number;
     content: string;
     created: string;
     photos: Photo[];
-    userview: {
-      id: number;
+    user: {
       name: string;
     };
   }[];

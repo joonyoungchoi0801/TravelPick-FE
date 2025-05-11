@@ -41,7 +41,13 @@ function ReviewModal({ onClose, id }: ReviewModalProps) {
   } = useForm<ReviewFormData>();
   const contentValue = watch('content', '');
 
-  const [createReview] = useMutation(CREATE_REVIEW);
+  const [createReview] = useMutation(CREATE_REVIEW, {
+    context: {
+      fetchOptions: {
+        credentials: 'include',
+      },
+    },
+  });
 
   const onSubmit = async (data: ReviewFormData) => {
     try {

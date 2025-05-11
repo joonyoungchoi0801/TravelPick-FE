@@ -5,6 +5,7 @@ import styles from './Header.module.scss';
 import SigninModal from '../modal/signin';
 import SignupModal from '../modal/signup';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Header() {
   const navigate = useNavigate();
@@ -19,11 +20,8 @@ function Header() {
       localStorage.removeItem('name');
       try {
         const apiUrl = import.meta.env.VITE_AUTH_URL;
-        await fetch(`${apiUrl}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        await axios.delete(`${apiUrl}/logout`, {
+          withCredentials: true,
         });
         alert('로그아웃 되었습니다.');
         navigate('/home');

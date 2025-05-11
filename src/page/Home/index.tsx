@@ -7,6 +7,7 @@ import {
 } from './Home.type';
 import TravelBox from '../../components/travelbox';
 import styles from './Home.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const SEARCH_RESORTS = gql`
   query SearchResorts($query: String, $dataurls: [String!], $count: Int!) {
@@ -27,6 +28,7 @@ const SEARCH_RESORTS = gql`
 `;
 
 function Home() {
+  const navigate = useNavigate();
   const { loading, error, data } = useQuery<
     SearchResortsData,
     SearchResortsVars
@@ -58,7 +60,16 @@ function Home() {
   return (
     <Layout>
       <div className={styles.content}>
-        <h1 className={styles.title}>추천 관광지</h1>
+        <div className={styles.titleWrapper}>
+          <h1 className={styles.title}>추천 관광지</h1>
+          <button
+            className={styles.button}
+            onClick={() => navigate('/register')}
+          >
+            여행지 등록
+          </button>
+        </div>
+
         <TravelList />
       </div>
     </Layout>

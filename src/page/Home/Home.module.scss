@@ -7,9 +7,36 @@
   width: 100%;
   gap: 2rem;
 }
+.titleWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+  .button {
+    padding: 0.8rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
 
-.title {
-  font-size: 3.2rem;
-  font-weight: 600;
-  color: #000;
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(135deg, #fcb69f, #ffecd2);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+  .title {
+    font-size: 3.2rem;
+    font-weight: 600;
+    color: #000;
+  }
 }

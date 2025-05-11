@@ -5,8 +5,9 @@ import styles from './Register.module.scss';
 import { useForm } from 'react-hook-form';
 import { LocationData, RegisterForm } from './Register.type';
 import { timezones } from '../../util/timezone';
-import { gql, useLazyQuery } from '@apollo/client';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import { debounce } from 'lodash';
+import { useNavigate } from 'react-router-dom';
 const containerStyle = {
   width: '100%',
   height: '500px',
@@ -24,6 +25,30 @@ const SEARCH_LOCATIONS = gql`
     }
   }
 `;
+const CREATE_RESORT = gql`
+  mutation CreateResort(
+    $name: String!
+    $parent_id: Int
+    $latitude: Float!
+    $longitude: Float!
+    $timezone: String!
+    $description: String!
+  ) {
+    createResort(
+      resortRegisterDto: {
+        name: $name
+        parent_id: $parent_id
+        latitude: $latitude
+        longitude: $longitude
+        timezone: $timezone
+        description: $description
+      }
+    ) {
+      id
+      name
+    }
+  }
+`;
 function Register() {
   const {
     handleSubmit,
@@ -32,7 +57,15 @@ function Register() {
     formState: { errors },
     setValue,
   } = useForm<RegisterForm>();
+  const navigate = useNavigate();
   const [searchLocations, { data }] = useLazyQuery(SEARCH_LOCATIONS);
+  const [createResort] = useMutation(CREATE_RESORT, {
+    context: {
+      fetchOptions: {
+        credentials: 'include',
+      },
+    },
+  });
   const [ancestorValue, setAncestorValue] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -40,22 +73,29 @@ function Register() {
 
   const debouncedSearch = useMemo(
     () =>
-      debounce((q: string) => {
-        searchLocations({ variables: { query: q, count: 5 } });
-      }, 300),
+      debounce(
+        (q: string) => searchLocations({ variables: { query: q, count: 5 } }),
+        300
+      ),
     [searchLocations]
   );
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
+    if (e.key === 'Enter') {
+      if (value.trim()) {
+        debouncedSearch(value);
+      } else {
+        setShowDropdown(false);
+      }
+      e.preventDefault();
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setAncestorValue(value);
     setShowDropdown(true);
-
-    if (value.trim()) {
-      debouncedSearch(value);
-    } else {
-      setShowDropdown(false);
-    }
   };
 
   const handleSelect = (location: LocationData) => {
@@ -75,8 +115,30 @@ function Register() {
       setMarkerPosition({ lat, lng });
     }
   };
-  const onSubmit = (data: RegisterForm) => {
-    console.log('제출된 데이터:', data);
+  const onSubmit = async (data: RegisterForm) => {
+    if (markerPosition) {
+      const { lat, lng } = markerPosition;
+      try {
+        const res = await createResort({
+          variables: {
+            name: data.name,
+            parent_id: data.parent_id,
+            latitude: lat,
+            longitude: lng,
+            timezone: data.timezone,
+            description: data.description,
+          },
+        });
+        if (res.data) {
+          alert('여행지가 등록되었습니다.');
+          navigate('/home');
+        }
+      } catch (error) {
+        alert('여행지 등록에 실패했습니다.');
+      }
+    } else {
+      alert('위치를 선택해주세요.');
+    }
   };
 
   return (
@@ -122,6 +184,7 @@ function Register() {
               type="text"
               className={styles.input}
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
               value={ancestorValue}
               autoComplete="off"
               placeholder="상위 지역 검색"
@@ -133,6 +196,7 @@ function Register() {
             />
             {showDropdown && data?.searchLocations?.length > 0 && (
               <ul className={styles.dropdown}>
+                <h3>검색결과</h3>
                 {data.searchLocations.map((option: LocationData) => (
                   <li
                     key={option.id}

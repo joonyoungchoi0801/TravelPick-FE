@@ -30,10 +30,13 @@ const GET_DETAILS = gql`
         dataurl
       }
     }
-    getReview(id: $id) {
+    getReviews(resort_id: $id) {
       id
       content
       created
+      user {
+        name
+      }
       photos {
         id
         index
@@ -49,7 +52,7 @@ function DestinationPage() {
     variables: { id: Number(id) },
   });
   const getResort = data?.getResort;
-  const getReview = data?.getReview;
+  const getReviews = data?.getReviews;
   // const [rating, setRating] = useState(4.4);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -103,13 +106,13 @@ function DestinationPage() {
             </span>
           </div>
           <div className={styles.bar} />
-          {getReview?.map((review, index) => (
+          {getReviews?.map((review, index) => (
             <ReviewBox
               key={index}
-              user={review.userview.name}
+              user={review.user.name}
               date={review.created}
               content={review.content}
-              imageUrl={review?.photos[0].dataurl}
+              imageUrl={review?.photos[0]?.dataurl}
             />
           ))}
         </div>
