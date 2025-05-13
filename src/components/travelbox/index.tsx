@@ -48,7 +48,9 @@ function TravelBox({
       <div className={styles.travelContent}>
         <div className={styles.travelTitle}>
           {title}&nbsp;&nbsp;
-          <span className={styles.similiarity}>유사도 {similarity * 100}%</span>
+          <span className={styles.similiarity}>
+            유사도 {Math.round(similarity * 10000) / 100}%
+          </span>
         </div>
         {/* <div className={styles.ratingWrapper}>
           <span>{rating}</span>
