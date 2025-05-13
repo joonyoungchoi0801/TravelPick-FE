@@ -74,6 +74,7 @@ function SearchPage() {
         imgSrc={resort.photos[0]?.dataurl}
         title={resort.name}
         description={resort.description}
+        similarity={resort.similarity}
       />
     ));
   };
@@ -82,7 +83,7 @@ function SearchPage() {
     <Layout>
       <div className={styles.content}>
         <span className={styles.term}>
-          {searchTerm}과(와) 일치하는 검색결과
+          {searchTerm}과(와) 일치하는 검색결과<script></script>
         </span>
 
         <TravelList />

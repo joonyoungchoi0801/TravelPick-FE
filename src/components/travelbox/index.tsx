@@ -7,9 +7,16 @@ interface TravelBoxProps {
   imgSrc?: string;
   title?: string;
   description?: string;
+  similarity: number;
 }
 
-function TravelBox({ id, imgSrc, title, description }: TravelBoxProps) {
+function TravelBox({
+  id,
+  imgSrc,
+  title,
+  description,
+  similarity,
+}: TravelBoxProps) {
   const navigate = useNavigate();
 
   // const Rating = () => {
@@ -39,7 +46,10 @@ function TravelBox({ id, imgSrc, title, description }: TravelBoxProps) {
         <img src={imgSrc} alt="travel" />
       </div>
       <div className={styles.travelContent}>
-        <div className={styles.travelTitle}>{title}</div>
+        <div className={styles.travelTitle}>
+          {title}&nbsp;&nbsp;
+          <span className={styles.similiarity}>유사도 {similarity * 100}%</span>
+        </div>
         {/* <div className={styles.ratingWrapper}>
           <span>{rating}</span>
           <Rating />

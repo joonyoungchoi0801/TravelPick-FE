@@ -54,6 +54,7 @@ function Home() {
         imgSrc={resort.photos[0]?.dataurl}
         title={resort.name}
         description={resort.description}
+        similarity={resort.similarity}
       />
     ));
   };
