@@ -39,6 +39,13 @@ function Home() {
       count: 10,
     },
   });
+  const handleRegister = () => {
+    if (localStorage.getItem('isLogin') === 'true') {
+      navigate('/register');
+    } else {
+      alert('로그인 후 이용해주세요.');
+    }
+  };
 
   const TravelList = () => {
     if (loading) return <p>Loading...</p>;
@@ -63,10 +70,7 @@ function Home() {
       <div className={styles.content}>
         <div className={styles.titleWrapper}>
           <h1 className={styles.title}>추천 관광지</h1>
-          <button
-            className={styles.button}
-            onClick={() => navigate('/register')}
-          >
+          <button className={styles.button} onClick={handleRegister}>
             여행지 등록
           </button>
         </div>
