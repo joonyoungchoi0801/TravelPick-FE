@@ -21,7 +21,7 @@
 
 ## 🚀 배포 주소
 
-🔗 https://www.travelpick.store
+🔗 [https://www.travelpick.store](https://www.travelpick.store)
 
 ## 📦 설치 및 실행 방법
 
