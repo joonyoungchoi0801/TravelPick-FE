@@ -48,9 +48,12 @@ const GET_DETAILS = gql`
 
 function DestinationPage() {
   const { id } = useParams();
-  const { data } = useQuery<GetDetailsData, GetDetailsVars>(GET_DETAILS, {
-    variables: { id: Number(id) },
-  });
+  const { data, refetch } = useQuery<GetDetailsData, GetDetailsVars>(
+    GET_DETAILS,
+    {
+      variables: { id: Number(id) },
+    }
+  );
   const getResort = data?.getResort;
   const getReviews = data?.getReviews;
   // const [rating, setRating] = useState(4.4);
@@ -118,7 +121,13 @@ function DestinationPage() {
         </div>
         {isReviewModalOpen &&
           ReactDOM.createPortal(
-            <ReviewModal id={id} onClose={() => setIsReviewModalOpen(false)} />,
+            <ReviewModal
+              id={id}
+              onClose={() => {
+                setIsReviewModalOpen(false);
+                refetch();
+              }}
+            />,
             document.getElementById('modal-root') as HTMLElement
           )}
       </div>
