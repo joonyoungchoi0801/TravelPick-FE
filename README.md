@@ -1,50 +1,33 @@
-# React + TypeScript + Vite
+# TravelPick - 멀티모달 여행지 추천 서비스
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**TravelPick**은 텍스트와 이미지를 기반으로 사용자 취향을 분석해 정밀한 여행지를 추천해주는 멀티모달 LLM 기반 웹 서비스입니다.
 
-Currently, two official plugins are available:
+## 🧭 프로젝트 목적
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+기존 여행 추천 시스템의 한계를 극복하고, 여행 경험이 적은 사용자도 직관적으로 여행지를 탐색할 수 있도록 돕습니다.
 
-## Expanding the ESLint configuration
+- 텍스트 + 이미지 입력을 통한 직관적 취향 표현
+- 감성 기반 키워드 매칭 (예: 조용한, 활기찬, 이국적인 등)
+- 사용자의 입력에 따라 유연하게 확장 가능한 여행지 탐색
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🛠 기술 스택
 
-- Configure the top-level `parserOptions` property like this:
+- **Frontend**: React, TypeScript, Vite, SCSS
+- **API 통신**: Apollo GraphQL
+- **Backend**: Spring Boot
+- **AI**: allenai/longformer-base-4096, openai/clip-vit-base-patch32
+- **Infra**: AWS S3, CloudFront, Route53, GitHub Actions (CI/CD)
+- **Etc**: Google Maps API
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🚀 배포 주소
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+🔗 https://www.travelpick.store
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 📦 설치 및 실행 방법
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+git clone https://github.com/joonyoungchoi0801/TravelPick-FE.git
+cd TravelPick-FE
+npm install
+npm run dev
 ```
